@@ -28,17 +28,6 @@ const MainLayout = () => {
         <ResizablePanel defaultSize={isMobile ? 80 : 60}>
           <Outlet />
         </ResizablePanel>
-        <ResizableHandle className="w-2 bg-black rounded-lg transition-colors" />
-
-        {/* Right sidebar */}
-        <ResizablePanel
-          defaultSize={20}
-          minSize={0}
-          maxSize={25}
-          collapsedSize={0}
-        >
-          Right sidebar
-        </ResizablePanel>
       </ResizablePanelGroup>
     </div>
   );

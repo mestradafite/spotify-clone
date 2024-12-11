@@ -1,9 +1,15 @@
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { useMusicStore } from '@/stores/useMusicStore';
-import { Play } from 'lucide-react';
+import { Clock, Play } from 'lucide-react';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+
+export const formatDuration = (seconds: number) => {
+  const minutes = Math.floor(seconds / 60);
+  const remainingSeconds = seconds % 60;
+  return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+};
 
 const AlbumPage = () => {
   const { fetchAlbumById, currentAlbum, isLoading } = useMusicStore();
@@ -69,7 +75,9 @@ const AlbumPage = () => {
                 <div>#</div>
                 <div>Title</div>
                 <div>Released Date</div>
-                <div></div>
+                <div>
+                  <Clock className="h-4 w-4" />
+                </div>
               </div>
 
               {/* songs list */}
@@ -85,6 +93,9 @@ const AlbumPage = () => {
                       `}
                       >
                         <div className="flex items-center justify-center">
+                          <span className="group-hover:hidden">
+                            {index + 1}
+                          </span>
                           <Play className="h-4 w-4 hidden group-hover:block" />
                         </div>
 
@@ -101,6 +112,12 @@ const AlbumPage = () => {
                             </div>
                             <div>{song.artist}</div>
                           </div>
+                        </div>
+                        <div className="flex items-center">
+                          {song.createdAt.split('T')[0]}
+                        </div>
+                        <div className="flex items-center">
+                          {formatDuration(song.duration)}
                         </div>
                       </div>
                     );
